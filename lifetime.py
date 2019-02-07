@@ -1,21 +1,21 @@
-from ROOT import TTree,TFile,TH1F,TCanvas,TF1
+from ROOT import TTree,TFile,TH1F,TCanvas,TF1 # ROOTから必要なクラスをimport
 from ROOT import gStyle
 
-gStyle.SetOptFit()
+gStyle.SetOptFit() # fitting parameterの表示
 
-file = TFile("run0124_1.root")
+file = TFile("run0124_1.root") # Open file
 
-c1 = TCanvas("c1","ch1",200,100,800,600)
+c1 = TCanvas("c1","ch1",200,100,800,600) # TCanvas("name","title",size?)
 
-f1 = TF1("f1","[0]*exp(-x/[1])+[2]")
-f1.SetNpx(10000)
-f1.SetParameters(1,2200,0)
-f1.SetParNames("constant","#tau","offset")
+f1 = TF1("f1","[0]*exp(-x/[1])+[2]") # TF1("name","funtion") = 1-Dim function
+f1.SetNpx(10000) # Set the number of points used to draw the function
+f1.SetParameters(1,2200,0) # Set initial value of parameters
+f1.SetParNames("constant","#tau","offset") # Set parameters' name
 
-tree = file.Get("v1290")
-tree.Draw("0.002441*(tdc-trig)","ch==1")
-h = TH1F("h","tdc(ch1)",10000,-10000,0)
-h.Fit("f1","","",-8000,-5000)
-f1.Draw("same")
+tree = file.Get("v1290") # Get tree(:v1290) from read file
+tree.Draw("0.002441*(tdc-trig)","ch==1") # Draw("branch & operation","conditions")
+h = TH1F("h","tdc(ch1)",10000,-10000,0) # TH1F("name","title",nbins,xmin,xmax)
+h.Fit("f1","","",-8000,-5000) # Fit("function",?,?,xmin,xmax)
+f1.Draw("same") # Draw same canvas
 
-c1.Print("run1.png")
+c1.Print("run1.png") # Print as "filename"
