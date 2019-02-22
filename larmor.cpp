@@ -17,6 +17,6 @@
      f1->SetParNames("C_1", "#tau[ns]", "C_2", "#omega[rad/ns]", "#delta[rad]", "#Deltat[ns]", "C_3"); //パラメータの名前を決める
      h1->Fit("f1", "", "", 2000, 8000);                                                                //xが0.000000001から10の範囲についてフィット
 
-     f1->Draw("same");      //読み込んだデータに重ねて書く
-     c1->Print("test.png"); //xxx.pngの形式で書き出す
+     f1->Draw("same");    //読み込んだデータに重ねて書く
+     c1->Print("00.png"); //xxx.pngの形式で書き出す
 }
