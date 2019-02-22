@@ -1,4 +1,4 @@
-from ROOT import TTree,TFile,TH1F,TCanvas,TF1 # ROOTから必要なクラスをimport
+from ROOT import TTree,TFile,TH1F,TCanvas,TF1,TMath # ROOTから必要なクラスをimport
 from ROOT import gStyle
 
 gStyle.SetOptFit() # fitting parameterの表示
@@ -13,9 +13,11 @@ f1.SetParameters(1,2200,0) # Set initial value of parameters
 f1.SetParNames("constant","#tau","offset") # Set parameters' name
 
 tree = file.Get("v1290") # Get tree(:v1290) from read file
-tree.Draw("0.002441*(tdc-trig)","ch==1") # Draw("branch & operation","conditions")
-h = TH1F("h","tdc(ch1)",10000,-10000,0) # TH1F("name","title",nbins,xmin,xmax)
-h.Fit("f1","","",-8000,-5000) # Fit("function",?,?,xmin,xmax)
+tree.Draw("0.02441*(tdc-trig)","ch==1") # Draw("branch & operation","conditions")
+
+h = TH1F("h","tdc(ch1)",10000,0,10000) # TH1F("name","title",nbins,xmin,xmax)
+h.Fit("f1","","",3000,8000) # Fit("function",?,?,xmin,xmax)
+
 f1.Draw("same") # Draw same canvas
 
 c1.Print("run1.png") # Print as "filename"
